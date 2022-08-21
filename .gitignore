@@ -1,0 +1,5 @@
+.vscode
+base
+build
+Makefile
+node_modules
