@@ -25,7 +25,7 @@ async function main() {
       "Milliliter or Cubic Centimeter (mL or cm\u00b3)",
       "Cubic Inch (in\u00b3)",
       "Fluid Once - US (fl oz)",
-      "liter (L)",
+      "Liter (L)",
       "Gallon - US (gal)",
       "Cubic Foot (ft\u00b3)",
     ],
@@ -105,7 +105,7 @@ async function main() {
   ConverterTypeInput.on("change", () => {
     const Options = [];
     let optionsHTML = "";
-    converterType = ConverterTypeInput.find(":selected").text().toLowerCase();
+    converterType = ConverterTypeInput.val();
     ConverterFromInput.removeAttr("disabled");
     ConverterToInput.removeAttr("disabled");
     switch (converterType) {
