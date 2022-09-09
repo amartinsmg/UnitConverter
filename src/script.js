@@ -160,15 +160,15 @@ async function main() {
 
   Form.on("submit", (e) => {
     e.preventDefault();
-    const From = parseInt(ConverterFromInput.val()),
-      To = parseInt(ConverterToInput.val()),
-      Value = parseFloat(ConverterValueInput.val()),
-      Result = WasmInstance.exports[converterType](From, To, Value),
-      FormattedResult =
-        Math.abs(Result) > 1e-3 && Math.abs(Result) < 1e6
-          ? Result.toFixed(3)
-          : Result.toExponential();
-    Output.html(FormattedResult);
+    const FROM = parseInt(ConverterFromInput.val()),
+      TO = parseInt(ConverterToInput.val()),
+      VALUE = parseFloat(ConverterValueInput.val()),
+      RESULT = WasmInstance.exports[converterType](FROM, TO, VALUE),
+      FORMATTED_RESULT =
+        Math.abs(RESULT) > 1e-3 && Math.abs(RESULT) < 1e6
+          ? RESULT.toFixed(3)
+          : RESULT.toExponential();
+    Output.html(FORMATTED_RESULT);
   });
 }
 
