@@ -90,24 +90,24 @@ async function main() {
       "Horsepower (hp)",
       "Kilowatt (kW)",
     ],
-    WasmInstance = await (
+    WasmInstance = (
       await WebAssembly.instantiateStreaming(await fetch("./assets/main.wasm"))
     ).instance,
-    Form = $("#in"),
-    ConverterTypeInput = $("#converter-type"),
-    ConverterFromInput = $("#converter-from"),
-    ConverterToInput = $("#converter-to"),
-    ConverterValueInput = $("#converter-value"),
-    Output = $("#out");
+    Form = document.querySelector("#in"),
+    ConverterTypeInput = document.querySelector("#converter-type"),
+    ConverterFromInput = document.querySelector("#converter-from"),
+    ConverterToInput = document.querySelector("#converter-to"),
+    ConverterValueInput = document.querySelector("#converter-value"),
+    Output = document.querySelector("#out");
 
   let converterType;
 
-  ConverterTypeInput.on("change", () => {
+  ConverterTypeInput.addEventListener("change", () => {
     const Options = [];
     let optionsHTML = "";
-    converterType = ConverterTypeInput.val();
-    ConverterFromInput.removeAttr("disabled");
-    ConverterToInput.removeAttr("disabled");
+    converterType = ConverterTypeInput.value;
+    ConverterFromInput.removeAttribute("disabled");
+    ConverterToInput.removeAttribute("disabled");
     switch (converterType) {
       case "length":
         Options.push(...LengthValues);
@@ -146,28 +146,28 @@ async function main() {
         Options.push(...PowerValues);
         break;
       default:
-        ConverterFromInput.attr("disabled");
-        ConverterToInput.attr("disabled");
+        ConverterFromInput.setAttribute("disabled");
+        ConverterToInput.setAttribute("disabled");
     }
     Options.forEach((option, index) => {
       optionsHTML += `<option value=${++index}>${option}</option>`;
     });
-    ConverterFromInput.html(optionsHTML);
-    ConverterToInput.html(optionsHTML);
+    ConverterFromInput.innerHTML = optionsHTML;
+    ConverterToInput.innerHTML = optionsHTML;
   });
 
-  Form.on("submit", (e) => {
+  Form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const FROM = parseInt(ConverterFromInput.val()),
-      TO = parseInt(ConverterToInput.val()),
-      VALUE = parseFloat(ConverterValueInput.val()),
+    const FROM = parseInt(ConverterFromInput.value),
+      TO = parseInt(ConverterToInput.value),
+      VALUE = parseFloat(ConverterValueInput.value),
       RESULT = WasmInstance.exports[converterType](FROM, TO, VALUE),
       FORMATTED_RESULT =
         Math.abs(RESULT) > 1e-3 && Math.abs(RESULT) < 1e6
           ? RESULT.toFixed(3)
           : RESULT.toExponential();
-    Output.html(FORMATTED_RESULT);
+    Output.textContent = FORMATTED_RESULT;
   });
 }
 
-main();
+window.addEventListener("load", main);
