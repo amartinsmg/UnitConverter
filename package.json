@@ -7,7 +7,8 @@
     "build": "npm run build:js && npm run build:wasm",
     "build:js": "webpack",
     "build:wasm": "wat2wasm -o build/assets/main.wasm src/main.wat",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "test": "node src/test/main.js"
   },
   "repository": {
     "type": "git",
