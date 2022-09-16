@@ -90,9 +90,6 @@ async function main() {
       "Horsepower (hp)",
       "Kilowatt (kW)",
     ],
-    WasmInstance = (
-      await WebAssembly.instantiateStreaming(await fetch("./assets/main.wasm"))
-    ).instance,
     Form = document.querySelector("#in"),
     ConverterTypeInput = document.querySelector("#converter-type"),
     ConverterFromInput = document.querySelector("#converter-from"),
@@ -100,74 +97,89 @@ async function main() {
     ConverterValueInput = document.querySelector("#converter-value"),
     Output = document.querySelector("#out");
 
-  let converterType;
+  try {
+    const WasmModule = await WebAssembly.instantiateStreaming(
+        await fetch("./assets/main.wasm")
+      ),
+      WasmExports = WasmModule.instance.exports;
 
-  ConverterTypeInput.addEventListener("change", () => {
-    const Options = [];
-    let optionsHTML = "";
-    converterType = ConverterTypeInput.value;
-    ConverterFromInput.removeAttribute("disabled");
-    ConverterToInput.removeAttribute("disabled");
-    switch (converterType) {
-      case "length":
-        Options.push(...LengthValues);
-        break;
-      case "area":
-        Options.push(...AreaValues);
-        break;
-      case "volume":
-        Options.push(...VolumeValues);
-        break;
-      case "mass":
-        Options.push(...MassValues);
-        break;
-      case "pressure":
-        Options.push(...PressureValues);
-        break;
-      case "time":
-        Options.push(...TimeValues);
-        break;
-      case "speed":
-        Options.push(...SpeedValues);
-        break;
-      case "acceleration":
-        Options.push(...AccelerationValues);
-        break;
-      case "force":
-        Options.push(...ForceValues);
-        break;
-      case "temperature":
-        Options.push(...TemperatureValues);
-        break;
-      case "energy":
-        Options.push(...EnergyValues);
-        break;
-      case "power":
-        Options.push(...PowerValues);
-        break;
-      default:
-        ConverterFromInput.setAttribute("disabled");
-        ConverterToInput.setAttribute("disabled");
-    }
-    Options.forEach((option, index) => {
-      optionsHTML += `<option value=${++index}>${option}</option>`;
+    ConverterTypeInput.addEventListener("change", () => {
+      try {
+        const CONVERTER_TYPE = ConverterTypeInput.value,
+          Options = [];
+        let optionsHTML = "";
+        ConverterFromInput.removeAttribute("disabled");
+        ConverterToInput.removeAttribute("disabled");
+        switch (CONVERTER_TYPE) {
+          case "length":
+            Options.push(...LengthValues);
+            break;
+          case "area":
+            Options.push(...AreaValues);
+            break;
+          case "volume":
+            Options.push(...VolumeValues);
+            break;
+          case "mass":
+            Options.push(...MassValues);
+            break;
+          case "pressure":
+            Options.push(...PressureValues);
+            break;
+          case "time":
+            Options.push(...TimeValues);
+            break;
+          case "speed":
+            Options.push(...SpeedValues);
+            break;
+          case "acceleration":
+            Options.push(...AccelerationValues);
+            break;
+          case "force":
+            Options.push(...ForceValues);
+            break;
+          case "temperature":
+            Options.push(...TemperatureValues);
+            break;
+          case "energy":
+            Options.push(...EnergyValues);
+            break;
+          case "power":
+            Options.push(...PowerValues);
+            break;
+          default:
+            ConverterFromInput.setAttribute("disabled");
+            ConverterToInput.setAttribute("disabled");
+        }
+        Options.forEach((option, index) => {
+          optionsHTML += `<option value=${++index}>${option}</option>`;
+        });
+        ConverterFromInput.innerHTML = ConverterToInput.innerHTML = optionsHTML;
+      } catch (err) {
+        Output.innerHTML = `<span>${err.message}</span>`;
+      }
     });
-    ConverterFromInput.innerHTML = optionsHTML;
-    ConverterToInput.innerHTML = optionsHTML;
-  });
 
-  Form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const FROM = parseInt(ConverterFromInput.value),
-      TO = parseInt(ConverterToInput.value),
-      VALUE = parseFloat(ConverterValueInput.value),
-      RESULT = WasmInstance.exports[converterType](FROM, TO, VALUE),
-      FORMATTED_RESULT =
-        Math.abs(RESULT) > 1e-3 && Math.abs(RESULT) < 1e6
-          ? RESULT.toFixed(3)
-          : RESULT.toExponential();
-    Output.textContent = FORMATTED_RESULT;
-  });
+    Form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      try {
+        const CONVERTER_TYPE = ConverterTypeInput.value,
+          FROM = parseInt(ConverterFromInput.value),
+          TO = parseInt(ConverterToInput.value),
+          VALUE = parseFloat(ConverterValueInput.value),
+          RESULT = WasmExports[CONVERTER_TYPE](FROM, TO, VALUE),
+          FORMATTED_RESULT =
+            Math.abs(RESULT) > 1e-3 && Math.abs(RESULT) < 1e6
+              ? RESULT.toFixed(3)
+              : RESULT.toExponential();
+        Output.textContent = FORMATTED_RESULT;
+      } catch (err) {
+        Output.innerHTML = `<span>${err.message}</span>`;
+      }
+    });
+  } catch (err) {
+    Output.innerHTML = `<span>${err.message}</span>`;
+  }
 }
 
 window.addEventListener("load", main);
