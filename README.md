@@ -1,6 +1,6 @@
 # WebUnitConverter
 
-This is a personal project for a Web Unit Converter. It's made with HTML, CSS, Bootstrap 5, JavaScript, and WebAssembly, generated from the [Pascal](https://github.com/amartinsmg/UnitConverter) source files.
+This is a personal project for a Web Unit Converter. It's made with HTML, CSS, Bootstrap 5, JavaScript, and WebAssembly, generated from the [Pascal](https://github.com/amartinsmg/CliUnitConverter) source files.
 
 It can convert units of length, area, volume, mass, pressure, time, speed, acceleration, force, temperature, energy, and power. Each has a corresponding function exported by the WebAssembly module, which gets as arguments an input unit's code, an output unit's code, and a value to convert.
 
