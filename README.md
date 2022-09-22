@@ -1,4 +1,4 @@
-# WebUnitConverter
+# UnitConverter
 
 This is a personal project for a Web Unit Converter. It's made with HTML, CSS, Bootstrap 5, JavaScript, and WebAssembly, generated from the [Pascal](https://github.com/amartinsmg/CliUnitConverter) source files.
 
