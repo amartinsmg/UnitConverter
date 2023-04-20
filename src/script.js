@@ -1,6 +1,20 @@
-import "./style.css";
+require("./style.css");
+const {
+  lengthConversion,
+  areaConversion,
+  volumeConversion,
+  massConversion,
+  pressureConversion,
+  timeConversion,
+  speedConversion,
+  accelerationConversion,
+  forceConversion,
+  temperatureConversion,
+  energyConversion,
+  powerConversion,
+} = require("./converter");
 
-async function main() {
+function main() {
   const LengthValues = [
       "Meter (m)",
       "Millimeter (mm)",
@@ -97,89 +111,121 @@ async function main() {
     ConverterValueInput = document.querySelector("#converter-value"),
     Output = document.querySelector("#out");
 
-  try {
-    const WasmModule = await WebAssembly.instantiateStreaming(
-        await fetch("./assets/main.wasm")
-      ),
-      WasmExports = WasmModule.instance.exports;
-
-    ConverterTypeInput.addEventListener("change", () => {
-      try {
-        const CONVERTER_TYPE = ConverterTypeInput.value,
-          Options = [];
-        let optionsHTML = "";
-        ConverterFromInput.removeAttribute("disabled");
-        ConverterToInput.removeAttribute("disabled");
-        switch (CONVERTER_TYPE) {
-          case "length":
-            Options.push(...LengthValues);
-            break;
-          case "area":
-            Options.push(...AreaValues);
-            break;
-          case "volume":
-            Options.push(...VolumeValues);
-            break;
-          case "mass":
-            Options.push(...MassValues);
-            break;
-          case "pressure":
-            Options.push(...PressureValues);
-            break;
-          case "time":
-            Options.push(...TimeValues);
-            break;
-          case "speed":
-            Options.push(...SpeedValues);
-            break;
-          case "acceleration":
-            Options.push(...AccelerationValues);
-            break;
-          case "force":
-            Options.push(...ForceValues);
-            break;
-          case "temperature":
-            Options.push(...TemperatureValues);
-            break;
-          case "energy":
-            Options.push(...EnergyValues);
-            break;
-          case "power":
-            Options.push(...PowerValues);
-            break;
-          default:
-            ConverterFromInput.setAttribute("disabled");
-            ConverterToInput.setAttribute("disabled");
-        }
-        Options.forEach((option, index) => {
-          optionsHTML += `<option value=${++index}>${option}</option>`;
-        });
-        ConverterFromInput.innerHTML = ConverterToInput.innerHTML = optionsHTML;
-      } catch (err) {
-        Output.innerHTML = `<span>${err.message}</span>`;
+  ConverterTypeInput.addEventListener("change", () => {
+    try {
+      const CONVERTER_TYPE = ConverterTypeInput.value,
+        Options = [];
+      let optionsHTML = "";
+      ConverterFromInput.removeAttribute("disabled");
+      ConverterToInput.removeAttribute("disabled");
+      switch (CONVERTER_TYPE) {
+        case "length":
+          Options.push(...LengthValues);
+          break;
+        case "area":
+          Options.push(...AreaValues);
+          break;
+        case "volume":
+          Options.push(...VolumeValues);
+          break;
+        case "mass":
+          Options.push(...MassValues);
+          break;
+        case "pressure":
+          Options.push(...PressureValues);
+          break;
+        case "time":
+          Options.push(...TimeValues);
+          break;
+        case "speed":
+          Options.push(...SpeedValues);
+          break;
+        case "acceleration":
+          Options.push(...AccelerationValues);
+          break;
+        case "force":
+          Options.push(...ForceValues);
+          break;
+        case "temperature":
+          Options.push(...TemperatureValues);
+          break;
+        case "energy":
+          Options.push(...EnergyValues);
+          break;
+        case "power":
+          Options.push(...PowerValues);
+          break;
+        default:
+          ConverterFromInput.setAttribute("disabled");
+          ConverterToInput.setAttribute("disabled");
       }
-    });
+      Options.forEach((option, index) => {
+        optionsHTML += `<option value=${++index}>${option}</option>`;
+      });
+      ConverterFromInput.innerHTML = ConverterToInput.innerHTML = optionsHTML;
+    } catch (err) {
+      Output.innerHTML = `<span>${err.message}</span>`;
+    }
+  });
 
-    Form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      try {
-        const CONVERTER_TYPE = ConverterTypeInput.value,
-          FROM = parseInt(ConverterFromInput.value),
-          TO = parseInt(ConverterToInput.value),
-          VALUE = parseFloat(ConverterValueInput.value),
-          RESULT = WasmExports[CONVERTER_TYPE](FROM, TO, VALUE),
-          FORMATTED_RESULT =
-            Math.abs(RESULT) > 1e-3 && Math.abs(RESULT) < 1e6
-              ? RESULT.toFixed(3)
-              : RESULT.toExponential();
-        Output.textContent = FORMATTED_RESULT;
-      } catch (err) {
-        Output.innerHTML = `<span>${err.message}</span>`;
+  Form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    try {
+      const CONVERTER_TYPE = ConverterTypeInput.value,
+        FROM = parseInt(ConverterFromInput.value),
+        TO = parseInt(ConverterToInput.value),
+        VALUE_TO_CONVERT = parseFloat(ConverterValueInput.value),
+        Args = [FROM, TO, VALUE_TO_CONVERT];
+      let result;
+      switch (CONVERTER_TYPE) {
+        case "length":
+          result = lengthConversion(...Args);
+          break;
+        case "area":
+          result = areaConversion(...Args);
+          break;
+        case "volume":
+          result = volumeConversion(...Args);
+          break;
+        case "mass":
+          result = massConversion(...Args);
+          break;
+        case "pressure":
+          result = pressureConversion(...Args);
+          break;
+        case "time":
+          result = timeConversion(...Args);
+          break;
+        case "speed":
+          result = speedConversion(...Args);
+          break;
+        case "acceleration":
+          result = accelerationConversion(...Args);
+          break;
+        case "force":
+          result = forceConversion(...Args);
+          break;
+        case "temperature":
+          result = temperatureConversion(...Args);
+          break;
+        case "energy":
+          result = energyConversion(...Args);
+          break;
+        case "power":
+          result = powerConversion(...Args);
+          break;
+        default:
+          result = null;
       }
-    });
-  } catch (err) {
-    Output.innerHTML = `<span>${err.message}</span>`;
-  }
+      const FORMATTED_RESULT =
+        Math.abs(result) > 1e-3 && Math.abs(result) < 1e6
+          ? result.toFixed(3)
+          : result.toExponential();
+      Output.textContent = FORMATTED_RESULT;
+    } catch (err) {
+      Output.innerHTML = `<span>${err.message}</span>`;
+    }
+  });
 }
 
 window.addEventListener("load", main);
