@@ -1,5 +1,2 @@
-.vscode
-base
-build
-Makefile
+dist
 node_modules
