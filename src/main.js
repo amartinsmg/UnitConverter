@@ -111,6 +111,14 @@ function main() {
     ConverterValueInput = document.querySelector("#converter-value"),
     Output = document.querySelector("#out");
 
+  /**
+    This function listens for the "change" event on the converter type select element. When the
+    event is triggered, it gets the selected converter type and uses it to determine which options to display
+    in the "from" and "to" select elements. If an unknown converter type is selected, the "from" and "to"
+    select elements are disabled. Any errors that occur during the execution of this function are caught
+    and displayed in the output element.
+  */
+
   ConverterTypeInput.addEventListener("change", () => {
     try {
       const CONVERTER_TYPE = ConverterTypeInput.value,
@@ -168,14 +176,20 @@ function main() {
     }
   });
 
+  /**
+    This function handles the form submit event.
+    @param e - The event object.
+    @returns - This function does not return anything.
+  */
+
   Form.addEventListener("submit", (e) => {
     e.preventDefault();
     try {
       const CONVERTER_TYPE = ConverterTypeInput.value,
-        FROM = parseInt(ConverterFromInput.value),
-        TO = parseInt(ConverterToInput.value),
+        FROM_VALUE = parseInt(ConverterFromInput.value),
+        TO_VALUE = parseInt(ConverterToInput.value),
         VALUE_TO_CONVERT = parseFloat(ConverterValueInput.value),
-        Args = [FROM, TO, VALUE_TO_CONVERT];
+        Args = [FROM_VALUE, TO_VALUE, VALUE_TO_CONVERT];
       let result;
       switch (CONVERTER_TYPE) {
         case "length":
