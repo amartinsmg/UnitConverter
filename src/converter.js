@@ -301,9 +301,9 @@ function timeConversion(inputUnit, outputUnit, input) {
 }
 
 /**
-  Convert speed units between meters per second, kilometers per hour, miles per hour, feet per second and knots.
-    @param inputUnit The unit of the input value: 1 for meters per second, 2 for kilometers per hour, 3 for miles per hour, 4 for feet per second, 5 for knots.
-    @param outputUnit The unit of the output value: 1 for meters per second, 2 for kilometers per hour, 3 for miles per hour, 4 for feet per second, 5 for knots.
+  Convert speed units between meters per second, feet per second, kilometers per hour, miles per hour and knots.
+    @param inputUnit The unit of the input value: 1 for meters per second, 2 for feet per second, 3 for kilometers per hour, 4 for miles per hour, 5 for knots.
+    @param outputUnit The unit of the output value: 1 for meters per second, 2 for feet per second, 3 for kilometers per hour, 4 for miles per hour, 5 for knots.
     @param input The input value to be converted.
     @return The converted value.
 */
@@ -344,9 +344,10 @@ function speedConversion(inputUnit, outputUnit, input) {
 }
 
 /**
-  Convert acceleration units between meters per second squared (m/s²), kilometers per hour squared (km/h²), miles per hour squared (mph²) and standard gravity (g).
-    @param inputUnit The unit of the input value: 1 for m/s², 2 for km/h², 3 for mph², 4 for g.
-    @param outputUnit The unit of the output value: 1 for m/s², 2 for km/h², 3 for mph², 4 for g.
+  Convert acceleration units between meters per second squared (m/s²), foots per minute per second (ft/min/s), kilometers per hour per second (km/h/s),
+    miles per hour per second (mph/s), knots per second (kn/s) and standard gravity (g).
+    @param inputUnit The unit of the input value: 1 for m/s², 2 for ft/min/s, 3 for km/h/s, 4 for mph/s, 5 for kn/s, 6 for g.
+    @param outputUnit The unit of the output value: 1 for m/s², 2 for ft/min/s, 3 for km/h/s, 4 for mph/s, 5 for kn/s, 6 for g.
     @param input The input value to be converted.
     @return The converted value.
 */
