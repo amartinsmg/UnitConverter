@@ -34,10 +34,10 @@ function lengthConversion(inputUnit, outputUnit, input) {
       meters = input * 1852;
       break;
     case 9:
-      meters = input * 1.495978e11;
+      meters = input * 149597870700;
       break;
     case 10:
-      meters = input * 9.46073e15;
+      meters = input * 9460730472580800;
       break;
   }
   switch (outputUnit) {
@@ -58,9 +58,9 @@ function lengthConversion(inputUnit, outputUnit, input) {
     case 8:
       return meters / 1852;
     case 9:
-      return meters / 1.495978e11;
+      return meters / 149597870700;
     case 10:
-      return meters / 9.46073e15;
+      return meters / 9460730472580800;
     default:
       return null;
   }
