@@ -4,14 +4,17 @@ const { ok: assert } = require("assert"),
     areaConversion,
     volumeConversion,
     massConversion,
-    pressureConversion,
+    densityConversion,
     timeConversion,
     speedConversion,
     accelerationConversion,
     forceConversion,
+    torqueConversion,
+    pressureConversion,
     temperatureConversion,
     energyConversion,
     powerConversion,
+    angleConversion,
   } = require("../converter");
 
 /**
@@ -42,13 +45,16 @@ void (function () {
   assert(roundTo(volumeConversion(4, 2, 10), 3) == 295.735);
   assert(roundTo(massConversion(6, 5, 1), 3) == 2204.623);
   assert(roundTo(massConversion(4, 3, 1), 3) == 28.35);
-  assert(roundTo(pressureConversion(5, 4, 1), 3) == 1.013);
+  assert(roundTo(densityConversion(4, 1, 5.518), 3) == 5518);
   assert(roundTo(timeConversion(5, 3, 1), 3) == 8766);
-  assert(roundTo(speedConversion(4, 3, 1), 3) == 1.609);
-  assert(roundTo(accelerationConversion(6, 3, 1), 3) == 35.304);
+  assert(roundTo(speedConversion(4, 2, 1), 3) == 1.609);
+  assert(roundTo(accelerationConversion(6, 2, 1), 3) == 35.304);
   assert(roundTo(forceConversion(4, 2, 1), 3) == 980665);
+  assert(roundTo(torqueConversion(4, 2, 1), 3) == 86.796);
+  assert(roundTo(pressureConversion(7, 4, 1), 3) == 14.696);
   assert(roundTo(temperatureConversion(2, 3, 20), 3) == 68);
   assert(roundTo(energyConversion(4, 2, 1), 3) == 3600);
   assert(roundTo(powerConversion(4, 2, 1), 3) == 2684.52);
+  assert(roundTo(angleConversion(5, 2, 1), 3) == 360);
   console.log("Passed all tests successfully");
 })();
