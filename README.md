@@ -1,6 +1,6 @@
 # Unit Converter
 
-The Unit Converter is a web-based application that allows users to convert units of various measurements such as length, area, volume, mass, pressure, time, speed, acceleration, force, temperature, energy, and power. This application can be used to convert units for educational, scientific, or engineering purposes.
+The Unit Converter is a web-based application that allows users to convert units of various measurements such as length, area, volume, mass, density, time, speed, acceleration, force, torque, pressure, temperature, energy, power, and angle. This application can be used to convert units for educational, scientific, or engineering purposes.
 
 ## Features
 
@@ -18,7 +18,7 @@ To build and run the project, follow these steps:
 2. Install the dependencies by running `yarn install`.
 3. Build the project by running `yarn build`.
 
-After the build process is complete, you can open the index.html file located in the 'dist' directory in your web browser to use the calculator.
+After the build process is complete, you can open the index.html file located in the 'dist' directory in your web browser to use the converter.
 
 ## Contributing
 
