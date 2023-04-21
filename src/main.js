@@ -18,7 +18,7 @@ const {
 } = require("./converter");
 
 /**
-  This is the main function that handles the form according to the change event to display the options of units to be converted, as well as handles the
+  This is the main function that handles the form according to the events, to display or to reverse the options of units to be converted, as well as handles the
     submit event of the form to provide the conversion result.
  */
 
@@ -138,9 +138,11 @@ function main() {
     ],
     Form = document.querySelector("#in"),
     ConverterTypeInput = document.querySelector("#converter-type"),
+    ReverseBtn = document.querySelector("#reverse-btn"),
     ConverterFromInput = document.querySelector("#converter-from"),
     ConverterToInput = document.querySelector("#converter-to"),
     ConverterValueInput = document.querySelector("#converter-value"),
+    SubmitBtn = document.querySelector("#submit-btn"),
     Output = document.querySelector("#out");
 
   /**
@@ -215,9 +217,32 @@ function main() {
   });
 
   /**
+    Reverses the values of two input fields when a button is clicked.
+    @param e - The event object.
+  */
+
+  ReverseBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const FROM_VALUE = ConverterFromInput.value;
+    ConverterFromInput.value = ConverterToInput.value;
+    ConverterToInput.value = FROM_VALUE;
+  });
+
+  /**
+    Listens for the 'keydown' event on the ConverterValueInput element, and triggers the form submission when the 'Enter' key is pressed.
+    @param e - The event object.
+  */
+
+  ConverterValueInput.addEventListener("keydown", (e) => {
+    if (e.key == "Enter") {
+      e.preventDefault();
+      SubmitBtn.click();
+    }
+  });
+
+  /**
     This function handles the form submit event.
     @param e - The event object.
-    @returns - This function does not return anything.
   */
   Form.addEventListener("submit", (e) => {
     e.preventDefault();
