@@ -14,6 +14,11 @@ const {
   powerConversion,
 } = require("./converter");
 
+/**
+  This is the main function that handles the form according to the change event to display the options of units to be converted, as well as handles the
+    submit event of the form to provide the conversion result.
+ */
+
 function main() {
   const LengthValues = [
       "Meter (m)",
@@ -112,13 +117,10 @@ function main() {
     Output = document.querySelector("#out");
 
   /**
-    This function listens for the "change" event on the converter type select element. When the
-    event is triggered, it gets the selected converter type and uses it to determine which options to display
-    in the "from" and "to" select elements. If an unknown converter type is selected, the "from" and "to"
-    select elements are disabled. Any errors that occur during the execution of this function are caught
-    and displayed in the output element.
+    This function listens for the "change" event on the converter type select element. When the event is triggered, it gets the selected
+      converter type and uses it to determine which options to display in the "from" and "to" select elements. If an unknown converter
+      type is selected, the "from" and "to" select elements are disabled.
   */
-
   ConverterTypeInput.addEventListener("change", () => {
     try {
       const CONVERTER_TYPE = ConverterTypeInput.value,
@@ -181,7 +183,6 @@ function main() {
     @param e - The event object.
     @returns - This function does not return anything.
   */
-
   Form.addEventListener("submit", (e) => {
     e.preventDefault();
     try {
@@ -241,5 +242,7 @@ function main() {
     }
   });
 }
+
+// Execute the main function on page load.
 
 window.addEventListener("load", main);
