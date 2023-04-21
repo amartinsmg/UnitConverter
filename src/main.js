@@ -4,14 +4,17 @@ const {
   areaConversion,
   volumeConversion,
   massConversion,
-  pressureConversion,
+  densityConversion,
   timeConversion,
   speedConversion,
   accelerationConversion,
   forceConversion,
+  torqueConversion,
+  pressureConversion,
   temperatureConversion,
   energyConversion,
   powerConversion,
+  angleConversion,
 } = require("./converter");
 
 /**
@@ -29,6 +32,8 @@ function main() {
       "Kilometer (km)",
       "Mile (m)",
       "Naultical Mile (nmi)",
+      "Astronomical unit (au)",
+      "Light-year (ly)",
     ],
     AreaValues = [
       "Square Meter (m\u00b2)",
@@ -41,7 +46,7 @@ function main() {
     ],
     VolumeValues = [
       "Cubic Meter (m\u00b3)",
-      "Milliliter or Cubic Centimeter (mL or cm\u00b3)",
+      "Milliliter (mL) or Cubic Centimeter (cm\u00b3)",
       "Cubic Inch (in\u00b3)",
       "Fluid Once - US (fl oz)",
       "Liter (L)",
@@ -56,12 +61,11 @@ function main() {
       "Pound (lb)",
       "Tonne (t)",
     ],
-    PressureValues = [
-      "Pascal or Newton per Square Meter (Pa or N/m\u00b2)",
-      "Millimeter of Mercury (mmHg)",
-      "Psi (psi)",
-      "Bar (bar)",
-      "Standard Atmosphere (atm)",
+    DensityValues = [
+      "Kilograms per Cubic Meter (kg/m\u00b3)",
+      "Pounds per Cubic Foot (lb/ft\u00b3)",
+      "Pounds per Gallon (lb/gal)",
+      "Grams per Cubic Centimeter (g/cm\u00b3) or Kilograms per Liter (kg/L)",
     ],
     TimeValues = [
       "Second (s)",
@@ -72,24 +76,40 @@ function main() {
     ],
     SpeedValues = [
       "Meter per Second (m/s)",
-      "Foot per Minute (ft/min)",
       "Kilometer per Hour (km/h)",
-      "Mile per Hour (mi/h)",
-      "Knot or Nautical Mile per Hour (kn or kt or nmi/h)",
+      "Foot per Second (ft/s)",
+      "Mile per Hour (mph)",
+      "Knot (kn or kt) or Nautical Mile per Hour (nmi/h)",
+      "Speed of light in vacuum (c)",
     ],
     AccelerationValues = [
-      "Meter per Second per Second (m/s\u00b2)",
-      "Foot per Minute per Second (ft/min/s)",
+      "Meter per Second Squared (m/s\u00b2)",
       "Kilometer per Hour per Second (km/h/s)",
+      "Foot per per Second Squared (ft/s\u00b2)",
       "Mile per Hour per Second (mi/h/s)",
       "Knot per Second (kn/s or kt/s)",
-      "Acceleration of Gravity (G)",
+      "Acceleration of Gravity (g)",
     ],
     ForceValues = [
       "Newton (N)",
       "Dyne (dyn)",
       "Pound-Force (lbf)",
       "Kilogram-Force (kgf)",
+    ],
+    TorqueValues = [
+      "Newton-meter (N\u00b7m)",
+      "Pound-Inch (lbf\u00b7in)",
+      "Pound-Feet (lbf\u00b7ft)",
+      "Kilogram-Force Meter (kgfm)",
+    ],
+    PressureValues = [
+      "Pascal (Pa) or Newton per Square Meter (N/m\u00b2)",
+      "Kilogram-Force per Square Meter (kgf/m\u00b2)",
+      "Millimeter of Mercury (mmHg)",
+      "Pound per Square Inch (psi)",
+      "Kilogram-Force per Square Centimeter (kgf/cm\u00b2)",
+      "Bar (bar)",
+      "Standard Atmosphere (atm)",
     ],
     TemperatureValues = [
       "Kelvin (K)",
@@ -109,6 +129,13 @@ function main() {
       "Horsepower (hp)",
       "Kilowatt (kW)",
     ],
+    AngleValues = [
+      "Radian (rad)",
+      "Degree (°)",
+      "Minute (')",
+      'Second (")',
+      "Revolution (r)",
+    ],
     Form = document.querySelector("#in"),
     ConverterTypeInput = document.querySelector("#converter-type"),
     ConverterFromInput = document.querySelector("#converter-from"),
@@ -125,7 +152,6 @@ function main() {
     try {
       const CONVERTER_TYPE = ConverterTypeInput.value,
         Options = [];
-      let optionsHTML = "";
       ConverterFromInput.removeAttribute("disabled");
       ConverterToInput.removeAttribute("disabled");
       switch (CONVERTER_TYPE) {
@@ -141,8 +167,8 @@ function main() {
         case "mass":
           Options.push(...MassValues);
           break;
-        case "pressure":
-          Options.push(...PressureValues);
+        case "density":
+          Options.push(...DensityValues);
           break;
         case "time":
           Options.push(...TimeValues);
@@ -156,6 +182,12 @@ function main() {
         case "force":
           Options.push(...ForceValues);
           break;
+        case "torque":
+          Options.push(...TorqueValues);
+          break;
+        case "pressure":
+          Options.push(...PressureValues);
+          break;
         case "temperature":
           Options.push(...TemperatureValues);
           break;
@@ -165,14 +197,18 @@ function main() {
         case "power":
           Options.push(...PowerValues);
           break;
+        case "angle":
+          Options.push(...AngleValues);
+          break;
         default:
           ConverterFromInput.setAttribute("disabled");
           ConverterToInput.setAttribute("disabled");
       }
-      Options.forEach((option, index) => {
-        optionsHTML += `<option value=${++index}>${option}</option>`;
-      });
-      ConverterFromInput.innerHTML = ConverterToInput.innerHTML = optionsHTML;
+      const OPTIONS_HTML = Options.reduce(
+        (acc, val, i) => `${acc}<option value=${++i}>${val}</option>`,
+        ""
+      );
+      ConverterFromInput.innerHTML = ConverterToInput.innerHTML = OPTIONS_HTML;
     } catch (err) {
       Output.innerHTML = `<span>${err.message}</span>`;
     }
@@ -205,8 +241,8 @@ function main() {
         case "mass":
           result = massConversion(...Args);
           break;
-        case "pressure":
-          result = pressureConversion(...Args);
+        case "density":
+          result = densityConversion(...Args);
           break;
         case "time":
           result = timeConversion(...Args);
@@ -220,6 +256,12 @@ function main() {
         case "force":
           result = forceConversion(...Args);
           break;
+        case "torque":
+          result = torqueConversion(...Args);
+          break;
+        case "pressure":
+          result = pressureConversion(...Args);
+          break;
         case "temperature":
           result = temperatureConversion(...Args);
           break;
@@ -229,12 +271,17 @@ function main() {
         case "power":
           result = powerConversion(...Args);
           break;
+        case "angle":
+          result = angleConversion(...Args);
+          break;
         default:
           result = null;
       }
       const FORMATTED_RESULT =
-        Math.abs(result) > 1e-3 && Math.abs(result) < 1e6
-          ? result.toFixed(3)
+        Math.abs(result) > 1e-6 && Math.abs(result) < 1e9
+          ? Number.isInteger(result * 1e6)
+            ? result.toString()
+            : result.toFixed(6)
           : result.toExponential();
       Output.textContent = FORMATTED_RESULT;
     } catch (err) {
