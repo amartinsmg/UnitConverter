@@ -1,7 +1,7 @@
 /**
-  Convert length units between meters, millimeters, centimeters, inches, feet, kilometers, miles and nautical miles.
-    @param inputUnit The unit of the input value: 1 for m, 2 for mm, 3 for cm, 4 for in, 5 for ft, 6 for km, 7 for mi, 8 for nmi.
-    @param outputUnit The unit of the output value: 1 for m, 2 for mm, 3 for cm, 4 for in, 5 for ft, 6 for km, 7 for mi, 8 for nmi.
+  Convert length units between meters, millimeters, centimeters, inches, feet, kilometers, miles, nautical miles, astronomical units and light-years.
+    @param inputUnit The unit of the input value: 1 for m, 2 for mm, 3 for cm, 4 for in, 5 for ft, 6 for km, 7 for mi, 8 for nmi, 9 to au, 10 to ly.
+    @param outputUnit The unit of the output value: 1 for m, 2 for mm, 3 for cm, 4 for in, 5 for ft, 6 for km, 7 for mi, 8 for nmi, 9 to au, 10 to ly.
     @param input The input value to be converted.
     @return The converted value.
 */
@@ -33,6 +33,12 @@ function lengthConversion(inputUnit, outputUnit, input) {
     case 8:
       meters = input * 1852;
       break;
+    case 9:
+      meters = input * 1.495978e11;
+      break;
+    case 10:
+      meters = input * 9.46073e15;
+      break;
   }
   switch (outputUnit) {
     case 1:
@@ -51,6 +57,10 @@ function lengthConversion(inputUnit, outputUnit, input) {
       return meters / 1609.35;
     case 8:
       return meters / 1852;
+    case 9:
+      return meters / 1.495978e11;
+    case 10:
+      return meters / 9.46073e15;
     default:
       return null;
   }
@@ -110,9 +120,9 @@ function areaConversion(inputUnit, outputUnit, input) {
 }
 
 /**
-  Convert volume units between cubic meters, milliliters, cubic inches, fluid ounces, liters, gallons and cubic feet.
-    @param inputUnit The unit of the input value: 1 for m³, 2 for mL, 3 for in³, 4 for fl oz, 5 for L, 6 for gal and 7 for ft³.
-    @param outputUnit The unit of the output value: 1 for m³, 2 for mL, 3 for in³, 4 for fl oz, 5 for L, 6 for gal and 7 for ft³.
+  Convert volume units between cubic meters, cubic centimeters, cubic inches, fluid ounces, liters, gallons and cubic feet.
+    @param inputUnit The unit of the input value: 1 for m³, 2 for cm³, 3 for in³, 4 for fl oz, 5 for L, 6 for gal and 7 for ft³.
+    @param outputUnit The unit of the output value: 1 for m³, 2 for cm³, 3 for in³, 4 for fl oz, 5 for L, 6 for gal and 7 for ft³.
     @param input The input value to be converted.
     @return The converted value.
 */
@@ -215,43 +225,38 @@ function massConversion(inputUnit, outputUnit, input) {
 }
 
 /**
-  Convert pressure units between pascals, millimeters of mercury (mmHg), pounds per square inch (psi), bars and atmospheres.
-    @param inputUnit The unit of the input value: 1 for Pa, 2 for mmHg, 3 for psi, 4 for bar, 5 for atm.
-    @param outputUnit The unit of the output value: 1 for Pa, 2 for mmHg, 3 for psi, 4 for bar, 5 for atm.
+  Convert density units between kilograms per cubic meter, pounds per cubic foot, pounds per gallon, grams per cubic centimeter and kilograms per liter.
+    @param inputUnit The unit of the input value: 1 for kg/m³, 2 for lb/ft³, 3 for lb/gal, 4 for g/cm³.
+    @param outputUnit The unit of the output value: 1 for kg/m³, 2 for lb/ft³, 3 for lb/gal, 4 for g/cm³.
     @param input The input value to be converted.
     @return The converted value.
 */
 
-function pressureConversion(inputUnit, outputUnit, input) {
-  let pascals;
+function densityConversion(inputUnit, outputUnit, input) {
+  let kgPerCubicMeter;
   switch (inputUnit) {
     case 1:
-      pascals = input;
+      kgPerCubicMeter = input;
       break;
     case 2:
-      pascals = input * 133.322;
+      kgPerCubicMeter = input * 16.018463;
       break;
     case 3:
-      pascals = input * 6894.757293;
+      kgPerCubicMeter = input * 119.826427;
       break;
     case 4:
-      pascals = input * 1e5;
-      break;
-    case 5:
-      pascals = input * 101325;
+      kgPerCubicMeter = input * 1000;
       break;
   }
   switch (outputUnit) {
     case 1:
-      return pascals;
+      return kgPerCubicMeter;
     case 2:
-      return pascals / 133.322;
+      return kgPerCubicMeter / 16.018463;
     case 3:
-      return pascals / 6894.757293;
+      return kgPerCubicMeter / 119.826427;
     case 4:
-      return pascals / 1e5;
-    case 5:
-      return pascals / 101325;
+      return kgPerCubicMeter / 1000;
     default:
       return null;
   }
@@ -301,12 +306,12 @@ function timeConversion(inputUnit, outputUnit, input) {
 }
 
 /**
-  Convert speed units between meters per second, feet per second, kilometers per hour, miles per hour and knots.
-    @param inputUnit The unit of the input value: 1 for meters per second, 2 for feet per second, 3 for kilometers per hour, 4 for miles per hour, 5 for knots.
-    @param outputUnit The unit of the output value: 1 for meters per second, 2 for feet per second, 3 for kilometers per hour, 4 for miles per hour, 5 for knots.
+  Convert speed units between meters per second, kilometers per hour, feet per second, miles per hour, knots and speed of light in vacuum.
+    @param inputUnit The unit of the input value: 1 for m/s, 2 for km/h, 3 for ft/s, 4 for mph, 5 for knots, 6 for spped of light.
+    @param outputUnit The unit of the output value: 1 for m/s, 2 for km/h, 3 for ft/s, 4 for mph, 5 for knots, 6 for spped of light.
     @param input The input value to be converted.
     @return The converted value.
-*/
+ */
 
 function speedConversion(inputUnit, outputUnit, input) {
   let metersPerSecond;
@@ -315,10 +320,10 @@ function speedConversion(inputUnit, outputUnit, input) {
       metersPerSecond = input;
       break;
     case 2:
-      metersPerSecond = input / 196.850394;
+      metersPerSecond = input / 3.6;
       break;
     case 3:
-      metersPerSecond = input / 3.6;
+      metersPerSecond = input / 3.28084;
       break;
     case 4:
       metersPerSecond = input / 2.23694;
@@ -326,31 +331,36 @@ function speedConversion(inputUnit, outputUnit, input) {
     case 5:
       metersPerSecond = input / 1.94384;
       break;
+    case 6:
+      metersPerSecond = input * 299792458;
+      break;
   }
   switch (outputUnit) {
     case 1:
       return metersPerSecond;
     case 2:
-      return metersPerSecond * 196.850394;
-    case 3:
       return metersPerSecond * 3.6;
+    case 3:
+      return metersPerSecond * 3.28084;
     case 4:
       return metersPerSecond * 2.23694;
     case 5:
       return metersPerSecond * 1.94384;
+    case 6:
+      return metersPerSecond / 299792458;
     default:
       return null;
   }
 }
 
 /**
-  Convert acceleration units between meters per second squared (m/s²), foots per minute per second (ft/min/s), kilometers per hour per second (km/h/s),
+  Convert acceleration units between meters per second squared (m/s²), kilometers per hour per second (km/h/s), foots per second squared (ft/s²), 
     miles per hour per second (mph/s), knots per second (kn/s) and standard gravity (g).
-    @param inputUnit The unit of the input value: 1 for m/s², 2 for ft/min/s, 3 for km/h/s, 4 for mph/s, 5 for kn/s, 6 for g.
-    @param outputUnit The unit of the output value: 1 for m/s², 2 for ft/min/s, 3 for km/h/s, 4 for mph/s, 5 for kn/s, 6 for g.
+    @param inputUnit The unit of the input value: 1 for m/s², 2 for km/h/s, 3 for ft/s², 4 for mph/s, 5 for kn/s, 6 for g.
+    @param outputUnit The unit of the output value: 1 for m/s², 2 for km/h/s, 3 for ft/s², 4 for mph/s, 5 for kn/s, 6 for g.
     @param input The input value to be converted.
     @return The converted value.
-*/
+ */
 
 function accelerationConversion(inputUnit, outputUnit, input) {
   let metersPerSecond2;
@@ -359,10 +369,10 @@ function accelerationConversion(inputUnit, outputUnit, input) {
       metersPerSecond2 = input;
       break;
     case 2:
-      metersPerSecond2 = input / 196.850394;
+      metersPerSecond2 = input / 3.6;
       break;
     case 3:
-      metersPerSecond2 = input / 3.6;
+      metersPerSecond2 = input / 3.28084;
       break;
     case 4:
       metersPerSecond2 = input / 2.236936;
@@ -378,9 +388,9 @@ function accelerationConversion(inputUnit, outputUnit, input) {
     case 1:
       return metersPerSecond2;
     case 2:
-      return metersPerSecond2 * 196.850394;
-    case 3:
       return metersPerSecond2 * 3.6;
+    case 3:
+      return metersPerSecond2 * 3.28084;
     case 4:
       return metersPerSecond2 * 2.236936;
     case 5:
@@ -392,13 +402,12 @@ function accelerationConversion(inputUnit, outputUnit, input) {
   }
 }
 
-/**
-
-Convert force units between newton, dyne, pound-force and kilogram-force.
-@param inputUnit - The unit of the input value: 1 for N, 2 for dyn, 3 for lbf, 4 for kgf.
-@param outputUnit - The unit of the output value: 1 for N, 2 for dyn, 3 for lbf, 4 for kgf.
-@param input - The input value to be converted.
-@return - The converted value.
+/**       
+  Convert force units between newton, dyne, pound-force and kilogram-force.
+    @param inputUnit - The unit of the input value: 1 for N, 2 for dyn, 3 for lbf, 4 for kgf.
+    @param outputUnit - The unit of the output value: 1 for N, 2 for dyn, 3 for lbf, 4 for kgf.
+    @param input - The input value to be converted.
+    @return - The converted value.
 */
 
 function forceConversion(inputUnit, outputUnit, input) {
@@ -434,7 +443,97 @@ function forceConversion(inputUnit, outputUnit, input) {
 }
 
 /**
+  Convert torque units between newton-meters, kilogram-force-meters, pound-feet and pound-inches.
+    @param inputUnit The unit of the input value: 1 for N·m, 2 for lbf·in, 3 for lbf·t, 4 for kgfm.
+    @param outputUnit The unit of the output value: 1 for N·m, 2 for lbf·in, 3 for lbf·ft, 4 for kgfm.
+    @param input The input value to be converted.
+    @return The converted value.
+*/
 
+function torqueConversion(inputUnit, outputUnit, input) {
+  let newtonMeter;
+  switch (inputUnit) {
+    case 1:
+      newtonMeter = input;
+      break;
+    case 2:
+      newtonMeter = input / 8.85074579;
+      break;
+    case 3:
+      newtonMeter = input / 0.737562149;
+      break;
+    case 4:
+      newtonMeter = input * 9.80665;
+      break;
+  }
+  switch (outputUnit) {
+    case 1:
+      return newtonMeter;
+    case 2:
+      return newtonMeter * 8.85074579;
+    case 3:
+      return newtonMeter * 0.737562149;
+    case 4:
+      return newtonMeter / 9.80665;
+    default:
+      return null;
+  }
+}
+
+/**
+  Convert pressure units between pascals, kilogram-force per square meter, millimeters of mercury, pounds per square inch, kilogram-force per square centimeter, bars and atmospheres.
+    @param inputUnit The unit of the input value: 1 for Pa, 2 for kgf/m², 3 for mmHg, 4 for psi, 5 for kgf/cm², 6 for bar, 7 for atm.
+    @param outputUnit The unit of the output value: 1 for Pa, 2 for kgf/m², 3 for mmHg, 4 for psi, 5 for kgf/cm², 6 for bar, 7 for atm.
+    @param input The input value to be converted.
+    @return The converted value.
+*/
+
+function pressureConversion(inputUnit, outputUnit, input) {
+  let pascals;
+  switch (inputUnit) {
+    case 1:
+      pascals = input;
+      break;
+    case 2:
+      pascals = input * 9.80665;
+      break;
+    case 3:
+      pascals = input * 133.322;
+      break;
+    case 4:
+      pascals = input * 6894.757293;
+      break;
+    case 5:
+      pascals = input * 98066.5;
+      break;
+    case 6:
+      pascals = input * 1e5;
+      break;
+    case 7:
+      pascals = input * 101325;
+      break;
+  }
+  switch (outputUnit) {
+    case 1:
+      return pascals;
+    case 2:
+      return pascals / 9.80665;
+    case 3:
+      return pascals / 133.322;
+    case 4:
+      return pascals / 6894.757293;
+    case 5:
+      return pascals / 98066.5;
+    case 6:
+      return pascals / 1e5;
+    case 7:
+      return pascals / 101325;
+    default:
+      return null;
+  }
+}
+
+/**         
   Convert temperature between Kelvin, Celsius and Fahrenheit.
     @param inputUnit - The unit of the input value: 1 for Kelvin, 2 for Celsius, 3 for Fahrenheit.
     @param outputUnit - The unit of the output value: 1 for Kelvin, 2 for Celsius, 3 for Fahrenheit.
@@ -552,17 +651,63 @@ function powerConversion(inputUnit, outputUnit, input) {
   }
 }
 
+/**
+  Convert angle units between radians, degrees, minutes, seconds, and revolutions.
+    @param inputUnit The unit of the input value: 1 for radians, 2 for degrees, 3 for minutes, 4 for seconds, and 5 for revolutions.
+    @param outputUnit The unit of the output value: 1 for radians, 2 for degrees, 3 for minutes, 4 for seconds, and 5 for revolutions.
+    @param input The input value to be converted.
+    @return The converted value.
+ */
+
+function angleConversion(inputUnit, outputUnit, input) {
+  let radians;
+  switch (inputUnit) {
+    case 1:
+      radians = input;
+      break;
+    case 2:
+      radians = input * (Math.PI / 180);
+      break;
+    case 3:
+      radians = input * (Math.PI / 180 / 60);
+      break;
+    case 4:
+      radians = input * (Math.PI / 180 / 3600);
+      break;
+    case 5:
+      radians = input * 2 * Math.PI;
+      break;
+  }
+  switch (outputUnit) {
+    case 1:
+      return radians;
+    case 2:
+      return radians / (Math.PI / 180);
+    case 3:
+      return radians / (Math.PI / 180 / 60);
+    case 4:
+      return radians / (Math.PI / 180 / 3600);
+    case 5:
+      return radians / (2 * Math.PI);
+    default:
+      return null;
+  }
+}
+
 module.exports = {
   lengthConversion,
   areaConversion,
   volumeConversion,
   massConversion,
-  pressureConversion,
+  densityConversion,
   timeConversion,
   speedConversion,
   accelerationConversion,
   forceConversion,
+  torqueConversion,
+  pressureConversion,
   temperatureConversion,
   energyConversion,
   powerConversion,
+  angleConversion,
 };
