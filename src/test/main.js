@@ -53,7 +53,7 @@ void (function () {
   assert(roundTo(torqueConversion(4, 2, 1), 3) == 86.796);
   assert(roundTo(pressureConversion(7, 4, 1), 3) == 14.696);
   assert(roundTo(temperatureConversion(2, 3, 20), 3) == 68);
-  assert(roundTo(energyConversion(4, 2, 1), 3) == 3600);
+  assert(roundTo(energyConversion(6, 3, 1), 3) == 3600);
   assert(roundTo(powerConversion(4, 2, 1), 3) == 2684.52);
   assert(roundTo(angleConversion(5, 2, 1), 3) == 360);
   console.log("Passed all tests successfully");
