@@ -118,9 +118,12 @@ function main() {
     ],
     EnergyValues = [
       "Joule (J)",
+      "Electronvolt (eV)",
       "Kilojoule (kJ)",
+      "Watt-hour (Wh)",
       "Kilocalorie (kcal)",
-      "Killowatt per hour (kW/h)",
+      "Killowatt-hour (kWh)",
+      "Tonne of TNT (ton)",
     ],
     PowerValues = [
       "Watt (W)",
