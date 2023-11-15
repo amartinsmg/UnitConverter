@@ -68,8 +68,10 @@ function lengthConversion(inputUnit, outputUnit, input) {
 
 /**
   Convert area units between square meters, square centimeters, square inches, square feet, hectares, square kilometers and square miles.
-    @param inputUnit The unit of the input value: 1 for square meters, 2 for square centimeters, 3 for square inches, 4 for square feet, 5 for hectares, 6 for square kilometers, 7 for square miles.
-    @param outputUnit The unit of the output value: 1 for square meters, 2 for square centimeters, 3 for square inches, 4 for square feet, 5 for hectares, 6 for square kilometers, 7 for square miles.
+    @param inputUnit The unit of the input value: 1 for square meters, 2 for square centimeters, 3 for square inches, 4 for square feet, 5 for
+                     hectares, 6 for square kilometers, 7 for square miles.
+    @param outputUnit The unit of the output value: 1 for square meters, 2 for square centimeters, 3 for square inches, 4 for square feet, 5
+                      for hectares, 6 for square kilometers, 7 for square miles.
     @param input The input value to be converted.
     @return The converted value.
 */
@@ -481,7 +483,8 @@ function torqueConversion(inputUnit, outputUnit, input) {
 }
 
 /**
-  Convert pressure units between pascals, kilogram-force per square meter, millimeters of mercury, pounds per square inch, kilogram-force per square centimeter, bars and atmospheres.
+  Convert pressure units between pascals, kilogram-force per square meter, millimeters of mercury, pounds per square inch, kilogram-force per
+    square centimeter, bars and atmospheres.
     @param inputUnit The unit of the input value: 1 for Pa, 2 for kgf/m², 3 for mmHg, 4 for psi, 5 for kgf/cm², 6 for bar, 7 for atm.
     @param outputUnit The unit of the output value: 1 for Pa, 2 for kgf/m², 3 for mmHg, 4 for psi, 5 for kgf/cm², 6 for bar, 7 for atm.
     @param input The input value to be converted.
@@ -569,9 +572,9 @@ function temperatureConversion(inputUnit, outputUnit, input) {
 }
 
 /**                           
-  Convert energy units between joules, kilojoules, kilocalories and kilowatt-hours.
-    @param inputUnit The unit of the input value: 1 for J, 2 for kJ, 3 for kcal, 4 for kW/h.
-    @param outputUnit The unit of the output value: 1 for J, 2 for kJ, 3 for kcal, 4 for kW/h.
+  Convert energy units between joules, electronvolts, kilojoules, watt-hours, kilocalories, kilowatt-hours and tonnes of TNT.
+    @param inputUnit The unit of the input value: 1 for J, 2 for eV, 3 for kJ, 4 for Wh, 5 for kcal, 6 for kWh, 7 for ton.
+    @param outputUnit The unit of the output value: 1 for J, 2 for eV, 3 for kJ, 4 for Wh, 5 for kcal, 6 for kWh, 7 for ton.
     @param input The input value to be converted.
     @return The converted value.
 */
@@ -583,13 +586,22 @@ function energyConversion(inputUnit, outputUnit, input) {
       joules = input;
       break;
     case 2:
-      joules = input * 1000;
+      joules = input / 6.241506e18;
       break;
     case 3:
-      joules = input * 4184;
+      joules = input * 1000;
       break;
     case 4:
+      joules = input * 3600;
+      break;
+    case 5:
+      joules = input * 4184;
+      break;
+    case 6:
       joules = input * 3.6e6;
+      break;
+    case 7:
+      joules = input * 4.184e9;
       break;
   }
 
@@ -597,11 +609,17 @@ function energyConversion(inputUnit, outputUnit, input) {
     case 1:
       return joules;
     case 2:
-      return joules / 1000;
+      return joules * 6.241506e18;
     case 3:
-      return joules / 4184;
+      return joules / 1000;
     case 4:
+      return joules / 3600;
+    case 5:
+      return joules / 4184;
+    case 6:
       return joules / 3.6e6;
+    case 7:
+      return joules / 4.184e9;
     default:
       return null;
   }
