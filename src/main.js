@@ -310,7 +310,7 @@ function main() {
           ? Number.isInteger(result * 1e6)
             ? result.toString()
             : result.toFixed(6)
-          : result.toExponential();
+          : result.toExponential(6);
       Output.textContent = FORMATTED_RESULT;
     } catch (err) {
       Output.innerHTML = `<span>${err.message}</span>`;
