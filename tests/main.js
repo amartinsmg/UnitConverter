@@ -30,9 +30,9 @@ function assertSameValue(actual, expected) {
 }
 
 /**
-  This function runs some tests to assert that the functions produce expected results.
-  The tests pass if all twenty assertions succeed. If any of them fail, an error will be thrown.
-  Finally, a success message is logged to the console.
+ * This function runs some tests to assert that the functions produce expected results.
+ * The tests pass if all twenty assertions succeed. If any of them fail, an error will be thrown.
+ * Finally, a success message is logged to the console.
  */
 
 void (function () {
