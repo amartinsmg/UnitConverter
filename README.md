@@ -1,29 +1,76 @@
 # Unit Converter
 
-The Unit Converter is a web-based application that allows users to convert units of various measurements such as length, area, volume, mass, density, time, speed, acceleration, force, torque, pressure, temperature, energy, power, and angle. This application can be used to convert units for educational, scientific, or engineering purposes.
+A simple and fast **web-based unit conversion tool** that allows users to convert values across multiple measurement categories such as length, area, volume, mass, temperature, energy, and more.
 
-## Features
+The goal of this project is to provide a **clean, accurate, and user-friendly interface** for everyday conversions used in education, science, and engineering.
 
-- Convert units of different measurements
-- Supports different units within each measurement category
-- Provides accurate conversion results
-- User-friendly interface
-- Automatically updates available units based on selected measurement
+## 👨🏻‍💻 Tech Stack
 
-## How to run the project
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6)
+![HTML](https://img.shields.io/badge/HTML5-E34F26)
+![Babel](https://img.shields.io/badge/Babel-EEDA7C)
+![Webpack](https://img.shields.io/badge/Webpack-8DD6F9)
+![Yarn](https://img.shields.io/badge/Yarn-2C8EBB)
+
+## 🧩 Features
+
+- Convert values between multiple measurement categories
+- Supports a wide range of units within each category
+- Accurate and instant conversion results
+- Dynamic unit selection based on the chosen measurement type
+- Clean and intuitive user interface
+
+## 🌡️ Supported Measurements
+
+- Length
+- Area
+- Volume
+- Mass
+- Density
+- Time
+- Speed
+- Acceleration
+- Force
+- Torque
+- Pressure
+- Temperature
+- Energy
+- Power
+- Angle
+
+## 🚀 How to run the project
 
 To build and run the project, follow these steps:
 
 1. Clone this repository.
-2. Install the dependencies by running `yarn install`.
-3. Build the project by running `yarn build`.
+2. Navigate to the project folder.
+3. Install the dependencies.
 
-After the build process is complete, you can open the index.html file located in the 'dist' directory in your web browser to use the converter.
+```sh
+yarn install
+```
 
-## Contributing
+4. Start the development server.
 
-Contributions to the Unit Converter project are welcome. If you find a bug or have a suggestion for an improvement, please open an issue or submit a pull request.
+```sh
+yarn dev
+```
 
-## License
+## 🌱 Contributing
 
-This project is licensed under the [MIT License](./LICENSE).
+Contributions are welcome!
+
+If you'd like to improve the project:
+
+1. Fork the repository
+2. Create a new branch
+3. Commit your changes
+4. Open a Pull Request
+
+Bug reports, feature requests, and suggestions are also appreciated via Issues.
+
+## 📄 License
+
+This project is licensed under the MIT License.
+See the [LICENSE](./LICENSE) file for more information.
