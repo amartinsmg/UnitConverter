@@ -53,7 +53,7 @@ const unitRegistry = {
     },
     ly: {
       label: "Light-year (ly)",
-      fromBase: (x) => x * 9.461e15,
+      toBase: (x) => x * 9.461e15,
       fromBase: (x) => x / 9.461e15,
     },
   },
